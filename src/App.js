@@ -1,11 +1,10 @@
-import './App.css';
+import TodoList from './components/TodoList';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Todo</h1>
-      </header>
+    <div className="container py-4">
+      <h1 className="text-center mb-4">Todo List</h1>
+      <TodoList />
     </div>
   );
 }
