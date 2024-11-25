@@ -71,6 +71,20 @@ const TodoList = () => {
     }
   };
 
+  const handleRenameTask = async (taskId, newText) => {
+    try {
+      setError(null);
+      setLoadingStates(prev => ({ ...prev, [taskId]: true }));
+      
+      const updatedTask = await todoApi.updateTask(taskId, newText);
+      setTasks(tasks.map(t => t.id === updatedTask.id ? updatedTask : t));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoadingStates(prev => ({ ...prev, [taskId]: false }));
+    }
+  };
+
   if (loading) {
     return (
       <div className="text-center text-muted">
@@ -118,6 +132,7 @@ const TodoList = () => {
             isLoading={loadingStates[task.id]}
             onToggleComplete={handleToggleComplete}
             onDelete={handleDeleteTask}
+            onRename={handleRenameTask}
           />
         ))}
       </ul>
